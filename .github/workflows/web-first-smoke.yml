@@ -1,0 +1,24 @@
+name: Web-First static verification
+on:
+  pull_request:
+    paths:
+      - 'index.html'
+      - 'tests/smoke.mjs'
+      - '.github/workflows/web-first-smoke.yml'
+  push:
+    branches: [main]
+    paths:
+      - 'index.html'
+      - 'tests/smoke.mjs'
+      - '.github/workflows/web-first-smoke.yml'
+jobs:
+  smoke:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - run: node tests/smoke.mjs
